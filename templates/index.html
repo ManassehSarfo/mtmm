@@ -11,7 +11,7 @@
 			            <span class="cd-words-wrapper">
 			              <b class="is-visible">MTM</b>
 			              <b>Real Fun</b>
-			              <b>Z</b>
+			              <b>Zed Oasis</b>
 			            </span>
 	          		</h1>
 				</div><a class="btn btn-primary btn-xl js-scroll-trigger" role="button" href="{% url 'index' %}#about" style="background-color: rgb(24,115,128);">Find Out More</a>
@@ -31,13 +31,17 @@
         </div>
     </section>
     <section id="tryout" class="content-section">
+
         <div class="container">
+
             <div class="content-section-heading text-center">
+
                 <h3 class="text-secondary mb-0" style="color: rgb(29,128,159);">samples</h3>
                 <h2 class="mb-5" style="color: rgb(1,17,50);">LET'S RUN SOME CODE&nbsp;</h2>
                 <p style="color: rgb(1,17,50);"><br>Cobol is one of the languages learnt during the Master the mainframe contest. In this try out, you can generate CC numbers and download them. Don't worry IBM's Z could handle millions of them, yhup they're that fast. You could proceed
                     Cobol CC Generator and generate valid Credit Card numbers.<br><br></p>
             </div>
+{% if check == True %}
             <div class="row no-gutters">
                 <div class="col-lg-6">
                     <a class="portfolio-item">
@@ -45,14 +49,37 @@
                             <div class="caption-content">
                                 <h2>Cobol CC Generator</h2>
                                 <div class="form-group">
-                                    <form>
-                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1" checked=""><label class="form-check-label" for="formCheck-1">Text File&nbsp;</label></div>
-                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Csv/Excel File</label></div><input class="form-control" type="number" placeholder="Kindly enter n0_ of records here"
-                                            required=""><button class="btn btn-primary" type="submit">Generate CC Numbers</button></form>
+                                    <form action="{% url 'download' %}" method="POST">
+                                    {% csrf_token %}
+                                        <button class="btn btn-primary" type="submit">Download CC Numbers</button></form>
                                 </div>
                             </div>
                         </div><img class="img-fluid" src="{% static 'assets/img/datacnter.PNG' %}"></a>
                 </div>
+{% else %}
+            <div class="row no-gutters">
+                <div class="col-lg-6">
+                    <a class="portfolio-item">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <h2>Cobol CC Generator</h2>
+                                <div class="form-group">
+                                    <form action="{% url 'index' %}" method="POST">
+                                    {% csrf_token %}
+                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1" checked="">
+                                        <label class="form-check-label" for="formCheck-1">Text File&nbsp;</label></div>
+                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2">
+                                        <label class="form-check-label" for="formCheck-2">Csv/Excel File</label></div>
+                                        <input class="form-control" name='numrec' type="number" value='2000' required="">
+                                        <button class="btn btn-primary" type="submit">Generate CC Numbers</button></form>
+                                </div>
+                            </div>
+                        </div><img class="img-fluid" src="{% static 'assets/img/datacnter.PNG' %}"></a>
+                </div>
+{% endif %}
+
+
+
                 <div class="col-lg-6">
                     <a class="portfolio-item" href="#">
                         <div class="caption">
@@ -85,6 +112,6 @@
     </section>
     <section class="content-section bg-primary text-white">
         <div class="container text-center">
-            <h2 class="mb-4">Cobol looks cool right? Let's go for the MTM then</h2><a class="btn btn-light btn-xl mr-4" role="button" href="https://mtm.masterthemainframe.com/">MTM</a><a class="btn btn-dark btn-xl mr-4" role="button" href="#">Run the Cobol again</a></div>
+            <h2 class="mb-4">Cobol looks cool right? Let's go for the MTM then</h2><a class="btn btn-light btn-xl mr-4" role="button" href="https://mtm.masterthemainframe.com/">MTM</a><a class="btn btn-dark btn-xl mr-4" role="button" href="{% url 'index' %}">Run the Cobol again</a></div>
     </section>
     {% endblock %}
